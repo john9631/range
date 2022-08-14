@@ -14,7 +14,7 @@ pub fn range<T>(best ...T) []T {
 			begin, end, step = best[0], best[1], best[2]
 		}
 		else {
-			eprintln('Please input 1 to 3 ints: range(start, stop, step)')
+			eprintln('Please input 1 to 3 integers or floats: range(start, stop, step)')
 			exit(1)
 		}
 	}
