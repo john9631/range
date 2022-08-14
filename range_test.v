@@ -14,6 +14,9 @@ fn test_range() {
 	assert range(12.0, 4.0, -4.0) == [12.0, 8.0]
 	assert range(11.0, 7.5, -0.5) == [11.0, 10.5, 10.0, 9.5, 9.0, 8.5, 8.0]
 	assert range(11.0, 7.5, 0.5) == []
+	assert range(1.25, 0.0, -.25) == [1.25, 1, 0.75, 0.5, 0.25]
+  assert range(1.25, -0.25, -.25) == [1.25, 1, 0.75, 0.5, 0.25, 0]
+  assert range(1.25, -0.000001, -.25) == [1.25, 1, 0.75, 0.5, 0.25, 0]
 
 	// assert range(1, 2, 3, 4) == Please input 1 to 3 integers or floats: range(start, stop, step)
 }
