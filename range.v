@@ -1,53 +1,39 @@
 module range
 
-pub struct IntRange {
-	start int = 0
-	stop  int
-	step  int = 1
-}
-
-pub struct FloatRange {
-	start f32 = 1.0
-	stop  f32
-	step  f32 = 1.0
-}
-
-pub fn int(range IntRange) []int {
-	mut arr := []int{}
-	if range.step == 0 {
-		eprintln('range: step cannot be zero')
-		exit(1)
-	}
-	if range.start > range.stop {
-		if range.step <= -1 {
-			for i := range.start; i > range.stop; i += range.step {
-				arr << i
-			}
+pub fn range<T>(best ...T) []T {
+	mut begin, mut end, mut step := T(0), T(1), T(1)
+	mut arr := []T{}
+	match best.len {
+		1 {
+			end = best[0]
 		}
-	}
-	for i := range.start; i < range.stop; i += range.step {
-		arr << i
-	}
-	return arr
-}
-
-pub fn float(float FloatRange) []f32 {
-	mut arr := []f32{}
-	if float.step == 0 {
-		eprintln('range: step cannot be zero')
-		exit(1)
-	}
-	if float.start > float.stop {
-		if float.step > 0 {
-			eprintln('range: negative float step provided')
+		2 {
+			begin, end = best[0], best[1]
+		}
+		3 {
+			begin, end, step = best[0], best[1], best[2]
+		}
+		else {
+			eprintln('Please input 1 to 3 ints: range(start, stop, step)')
 			exit(1)
 		}
-		for i := float.start; i > float.stop; i += float.step {
+	}
+
+	if step == T(0) {
+		eprintln('range: step cannot be zero')
+		exit(1)
+	}
+	if (begin > end && step > T(0)) || (begin < end && step < T(0)) {
+		return []
+	}
+	if step > T(0) {
+		for i := begin; i < end; i += step {
 			arr << i
 		}
-	}
-	for i := float.start; i < float.stop; i += float.step {
-		arr << i
+	} else {
+		for i := begin; i > end; i += step {
+			arr << i
+		}
 	}
 	return arr
 }
